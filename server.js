@@ -1,47 +1,63 @@
-require("dotenv").config();
 var express = require("express");
-var exphbs = require("express-handlebars");
+var expressLayouts = require("express-ejs-layouts")
+var flash = require('connect-flash')
+var session = require('express-session')
+var passport = require('passport')
+
+var PORT = process.env.PORT || 5500;
+
+var app = express();
+
+require('./config/passport')(passport);
 
 var db = require("./models");
 
-var app = express();
-var PORT = process.env.PORT || 3000;
-
-// Middleware
-app.use(express.urlencoded({ extended: false }));
+// Parse application body as JSON
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("public"));
 
-// Handlebars
-app.engine(
-  "handlebars",
-  exphbs({
-    defaultLayout: "main"
-  })
-);
-app.set("view engine", "handlebars");
+// Express Session
+app.use(
+    session({
+      secret: 'secret',
+      resave: true,
+      saveUninitialized: true
+    })
+  );
+
+app.use(passport.initialize());
+app.use(passport.session());
+  
+  // Connect flash
+  app.use(flash());
+  
+  // Global variables
+  app.use(function(req, res, next) {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+  });
+
+// EJS
+app.use(expressLayouts);
+app.set('view engine', 'ejs');
 
 // Routes
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
+app.use('/', require('./routes/index'));
+app.use('/users', require('./routes/users'));
 
-var syncOptions = { force: false };
 
-// If running a test, set syncOptions.force to true
-// clearing the `testdb`
-if (process.env.NODE_ENV === "test") {
-  syncOptions.force = true;
-}
-
-// Starting the server, syncing our models ------------------------------------/
-db.sequelize.sync(syncOptions).then(function() {
-  app.listen(PORT, function() {
-    console.log(
-      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
-      PORT,
-      PORT
-    );
-  });
+//Sync Database
+db.sequelize.sync().then(function() {
+ 
+    console.log('Nice! Database looks fine')
+ 
+}).catch(function(err) {
+ 
+    console.log(err, "Something went wrong with the Database Update!")
+ 
 });
 
-module.exports = app;
+// Initialize Server
+app.listen(PORT, console.log(`Server started on ${PORT}`))
