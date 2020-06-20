@@ -1,14 +1,14 @@
 var express = require("express");
-var expressLayouts = require("express-ejs-layouts")
-var flash = require('connect-flash')
-var session = require('express-session')
-var passport = require('passport')
+var expressLayouts = require("express-ejs-layouts");
+var flash = require("connect-flash");
+var session = require("express-session");
+var passport = require("passport");
 
 var PORT = process.env.PORT || 5500;
 
 var app = express();
 
-require('./config/passport')(passport);
+require("./config/passport")(passport);
 
 var db = require("./models");
 
@@ -45,13 +45,16 @@ app.use(express.static("public"));
 
 // EJS
 app.use(expressLayouts);
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/threads', require('./routes/threads'))
 
+// Routes
+app.use("/", require("./routes/index"));
+app.use("/users", require("./routes/users"));
 
 //Sync Database
 db.sequelize.sync().then(function() {

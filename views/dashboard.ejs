@@ -1,42 +1,60 @@
-  <div class="container jumbotron">
-    <h1>dogstr</h1>
-    <a href="/users/logout" class="btn btn-secondary">Logout</a>
-  </div>
-  <div class="container main d-lg-flex">
-    <div class="container map-container col-lg-6"></div>
-    <div class="container form-container col-lg-6">
-      <form>
-        <div class="form-group">
-          <label for="exampleFormControlSelect1">Example select</label
-            >
-            <select class="form-control" id="distance">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-            <br />
-            <select class="form-control" id="popularity">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option> </select
-            ><br />
-            <select class="form-control" id="rating">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option> </select
-            ><br />
-            <button id="filter" class="btn btn-primary" type="submit">
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="bottom-section"></div>
-    
+<header>
+  <a href="/users/logout " class="btn btn-secondary float-right">Logout</a>
+</header>
+
+<div class="hero-wrapper">
+  <div class="jumbotron hero-section d-md-flex justify-content-around">
+    <img src="/multiple-dogs.png" alt="two-dogs" height="150px" " />
+		<div class="hero-title ">
+			<h1 class="text-center ">DOGSTR</h1>
+			<h4 class="text-center ">
+				Schedule a play date for you and your pup!
+			</h4>
+		</div>
+		<img src="/google-maps.png " alt="google maps icon " height="150px " />
+	</div>
+</div>
+
+<div class="container main d-lg-flex justify-content-around ">
+	<div class="container map-container col-lg-6 "></div>
+	<div class="container form-container col-lg-6 ">
+		<form>
+			<div class="form-group ">
+				<label for="Select1 ">Distance</label>
+				<select class="form-control " id="distance ">
+					<option value=" "></option>
+					<option value="1 ">1 mile</option>
+					<option value="5 ">5 mile</option>
+					<option value="10 ">10 mile</option>
+					<option value="25 ">25 mile</option>
+				</select>
+				<br />
+				<label for="Select1 ">Popularity</label>
+				<select class="form-control " id="popularity ">
+					<option value=" "></option>
+					<option value="1 ">1</option>
+					<option value="2 ">2</option>
+					<option value="3 ">3</option>
+					<option value="4 ">4</option>
+					<option value="5 ">5</option> </select
+				><br />
+				<label for="Select1 ">Rating</label>
+				<select class="form-control " id="rating ">
+					<option value=" "></option>
+					<option value="1 ">1</option>
+					<option value="2 ">2</option>
+					<option value="3 ">3</option>
+					<option value="4 ">4</option>
+					<option value="5 ">5</option> </select
+				><br />
+				<button class="btn btn-primary " id="filter " type="submit ">
+					Submit
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="bottom-section ">
+	<p park-one-thread>Park one thread</p>
+</div>
