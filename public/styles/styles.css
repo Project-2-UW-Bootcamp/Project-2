@@ -30,6 +30,12 @@
   display: none;
 }
 
+.logout a {
+  display: block;
+  margin: 0 auto;
+  width: 30%;
+}
+
 .map-container {
   border: 1px solid red;
   height: 250px;
