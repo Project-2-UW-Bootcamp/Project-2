@@ -30,8 +30,14 @@
   display: none;
 }
 
+.logout a {
+  display: block;
+  margin: 0 auto;
+  width: 20%;
+}
+
 .map-container {
-  border: 1px solid red;
+  border: 1px solid gray;
   height: 250px;
   width: 250px;
   margin-bottom: 3rem;
