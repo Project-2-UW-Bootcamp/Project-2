@@ -55,7 +55,7 @@ app.use('/threads', require('./routes/threads'))
 // Routes
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
-
+require("./routes/parks")(app);
 //Sync Database
 db.sequelize.sync().then(function() {
 
