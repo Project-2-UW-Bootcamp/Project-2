@@ -19,9 +19,9 @@ app.use(express.json());
 // Express Session
 app.use(
   session({
-    secret: "secret",
+    secret: 'secret',
     resave: true,
-    saveUninitialized: true,
+    saveUninitialized: true
   })
 );
 
@@ -33,32 +33,39 @@ app.use(flash());
 
 // Global variables
 app.use(function(req, res, next) {
-  res.locals.success_msg = req.flash("success_msg");
-  res.locals.error_msg = req.flash("error_msg");
-  res.locals.error = req.flash("error");
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
   next();
 });
+
+
+// Serve static html from public directory
+app.use(express.static("public"));
 
 // EJS
 app.use(expressLayouts);
 app.set("view engine", "ejs");
 
-// serve static content for the app from the public directory
-app.use(express.static("public"));
+// Routes
+app.use('/', require('./routes/index'));
+app.use('/users', require('./routes/users'));
+app.use('/threads', require('./routes/threads'))
 
 // Routes
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
 require("./routes/parks")(app);
 //Sync Database
-db.sequelize
-  .sync()
-  .then(function() {
-    console.log("Nice! Database looks fine");
-  })
-  .catch(function(err) {
-    console.log(err, "Something went wrong with the Database Update!");
-  });
+db.sequelize.sync().then(function() {
+
+  console.log('Nice! Database looks fine')
+
+}).catch(function(err) {
+
+  console.log(err, "Something went wrong with the Database Update!")
+
+});
 
 // Initialize Server
-app.listen(PORT, console.log(`Server started on ${PORT}`));
+app.listen(PORT, console.log(`Server started on ${PORT}`))

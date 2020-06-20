@@ -5,14 +5,15 @@ var bcrypt = require("bcryptjs");
 var passport = require("passport");
 
 // Register Page
-router.get("/register", function(req, res) {
-  res.render("register");
-});
+router.get('/register', function(req, res) {
+  res.render('register')
+})
 
 // Login Page
-router.get("/login", function(req, res) {
-  res.render("login");
-});
+router.get('/login', function(req, res) {
+  res.render('login')
+})
+
 
 // Dashboard Page
 router.get("/dashboard", function(req, res) {

@@ -1,5 +1,3 @@
-$(document).ready(function() {
-  console.log("here");
 let pos;
 let map;
 let bounds;
@@ -7,7 +5,7 @@ let infoWindow;
 let currentInfoWindow;
 let service;
 let infoPane;
-(function initMap() {
+function initMap() {
     // Initialize variables
     bounds = new google.maps.LatLngBounds();
     infoWindow = new google.maps.InfoWindow;
@@ -43,7 +41,7 @@ infoPane = document.getElementById('panel');
     // Browser doesn't support geolocation
     handleLocationError(false, infoWindow);
     }
-})();
+}
 
 // Handle a geolocation error
 function handleLocationError(browserHasGeolocation, infoWindow) {
@@ -155,8 +153,8 @@ google.maps.event.addListener(marker, 'click', () => {
 function showDetails(placeResult, marker, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
     let placeInfowindow = new google.maps.InfoWindow();
-    placeInfowindow.setContent('<div><strong>' + placeResult.name +
-        '</strong><br>' + 'Rating: ' + placeResult.rating + '</div>');
+    placeInfowindow.setContent('<div><h4><strong>' + placeResult.name +
+        '</strong></h4>' + '<h4>Rating: ' + placeResult.rating + '</h4>' + '<button id="yo" type="submit" class="btn btn-primary btn-block">Go to thread</button>' + '</div>');
     placeInfowindow.open(marker.map, marker);
     currentInfoWindow.close();
     currentInfoWindow = placeInfowindow;
@@ -165,6 +163,7 @@ function showDetails(placeResult, marker, status) {
     console.log('showDetails failed: ' + status);
     }
 }
+
 
 // Displays place details in a sidebar
 /*function showPanel(placeResult) {
@@ -219,4 +218,3 @@ if (placeResult.photos != null) {
     
 } */
 
-});
