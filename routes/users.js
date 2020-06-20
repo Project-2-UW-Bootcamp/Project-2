@@ -20,6 +20,11 @@ router.get('/dashboard', function (req, res) {
     res.render('dashboard')
 })
 
+// Profile Page
+router.get('/profile', function (req, res) {
+    res.render('profile')
+})
+
 // Hangle Register
 router.post('/register', function (req, res) {
     var { name, email, password, password2 } = req.body;
