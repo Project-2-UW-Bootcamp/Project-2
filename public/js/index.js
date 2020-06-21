@@ -5,6 +5,8 @@ let infoWindow;
 let currentInfoWindow;
 let service;
 let infoPane;
+
+console.log('hi')
 function initMap() {
     // Initialize variables
     bounds = new google.maps.LatLngBounds();
@@ -96,7 +98,7 @@ google.maps.event.addListener(marker, 'click', () => {
     let request = {
     placeId: place.place_id,
     fields: ['name', 'formatted_address', 'geometry', 'rating',
-        'website', 'photos']
+        'website', 'photos', 'place_id']
     };
     /* Only fetch the details of a place when the user clicks on a marker.
     * If we fetch the details for all place results as soon as we get
@@ -136,10 +138,9 @@ google.maps.event.addListener(marker, 'click', () => {
     }
 }); */
     
-
-
     });
 });
+
 
     // Adjust the map bounds to include the location of this marker
     bounds.extend(place.geometry.location);
@@ -151,10 +152,11 @@ google.maps.event.addListener(marker, 'click', () => {
 
 // Builds an InfoWindow to display details above the marker
 function showDetails(placeResult, marker, status) {
+  console.log(placeResult.place_id)
     if (status == google.maps.places.PlacesServiceStatus.OK) {
     let placeInfowindow = new google.maps.InfoWindow();
     placeInfowindow.setContent('<div><h4><strong>' + placeResult.name +
-        '</strong></h4>' + '<h4>Rating: ' + placeResult.rating + '</h4>' + '<button id="yo" type="submit" class="btn btn-primary btn-block">Go to thread</button>' + '</div>');
+        '</strong></h4>' + '<h4>Rating: ' + placeResult.rating + '</h4>' + `<button onclick="threads()" data-id='${placeResult.place_id}' class="btn btn-primary btn-block">Go to thread</button>` + '</div>');
     placeInfowindow.open(marker.map, marker);
     currentInfoWindow.close();
     currentInfoWindow = placeInfowindow;
@@ -162,6 +164,11 @@ function showDetails(placeResult, marker, status) {
     } else {
     console.log('showDetails failed: ' + status);
     }
+}
+
+function threads(){
+  console.log('hi')
+  console.log($(this).data('id'))
 }
 
 
