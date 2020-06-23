@@ -57,7 +57,15 @@
 		</form>
 	</div>
 </div>
-
-<div class="bottom-section ">
-	<p park-one-thread>Park one thread</p>
+<div class="jumbotron text-center">
+<% if(typeof locals.message !='undefined'){ %>
+	<h1 class="text-center"><%= message %></h1>
+	<h3 class="text-center">Write a comment:</h3>
+	<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+	<br>
+	<button class="btn btn-primary text-center " id="thread_submit" type="submit">
+		Submit
+	</button>
+	<% console.log(message) %>
+  <% } %>
 </div>

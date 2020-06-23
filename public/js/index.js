@@ -116,6 +116,8 @@ google.maps.event.addListener(marker, 'click', () => {
         rating:placeResult.rating,
         popularity: 0
     }
+
+    returnParkData(parkData.parkID)
     
     $.ajax("/maps/api",{
         type: "POST",
@@ -156,7 +158,7 @@ function showDetails(placeResult, marker, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
     let placeInfowindow = new google.maps.InfoWindow();
     placeInfowindow.setContent('<div><h4><strong>' + placeResult.name +
-        '</strong></h4>' + '<h4>Rating: ' + placeResult.rating + '</h4>' + `<button onclick="threads()" data-id='${placeResult.place_id}' class="btn btn-primary btn-block">Go to thread</button>` + '</div>');
+        '</strong></h4>' + '<h4>Rating: ' + placeResult.rating + '</h4>' + `<a href="/dashboard/${placeResult.place_id}" id="thread" data-id='${placeResult.place_id}' class="btn btn-primary btn-block">Go to thread</a>` + '</div>');
     placeInfowindow.open(marker.map, marker);
     currentInfoWindow.close();
     currentInfoWindow = placeInfowindow;
@@ -166,12 +168,20 @@ function showDetails(placeResult, marker, status) {
     }
 }
 
-function threads(){
-  console.log('hi')
-  console.log($(this).data('id'))
+function threads(element){
+  var park_id = $(element).data('id');
+  $.ajax("/threads/api",{
+    type: "POST",
+    data: { park_id: park_id }
+}).then(function(data){
+    console.log(`New thread added to table`);
+    console.log(data)
+});
 }
 
-
+function returnParkData(something){
+  console.log(something);
+}
 // Displays place details in a sidebar
 /*function showPanel(placeResult) {
     // If infoPane is already open, close it

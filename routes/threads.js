@@ -1,16 +1,38 @@
-var express = require("express");
-var router = express.Router();
 var db = require("../models");
 
-router.get('/thread_id/:id', function(req, res) {
-  var id = req.params.id
-  console.log(id)
-
-  db.Parks.findAll({
-    where: id
-  }).then(function(data) {
-    console.log(data)
+module.exports = function(app){
+app.post("/threads/api", function(req, res) {
+  var id = req.body.park_id
+  
+  db.threads.findOne({
+    where: {
+      ParkId: id
+    },
+    include: [db.Parks]
+  }).then(function(response){
+    var message = { message: 'There are no threads for this dog park yet'}
+    if(!response){
+      res.json(message.message)
+    }
   })
 })
 
-module.exports = router;
+app.get("/dashboard/:park_id", function(req, res){
+  var id = req.params.park_id
+  
+  db.threads.findOne({
+    where: {
+      ParkId: id
+    },
+    include: [db.Parks]
+  }).then(function(response){
+    if(!response){
+      var message = 'There are no threads for this dog park yet'
+      res.render("dashboard", { message })
+    }
+  })
+})
+}
+
+
+
