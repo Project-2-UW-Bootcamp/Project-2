@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "password",
+    "password": "flipflip",
     "database": "authentication_db",
     "host": "localhost",
     "dialect": "mysql"
