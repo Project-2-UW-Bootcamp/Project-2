@@ -11,6 +11,10 @@ module.exports = function(sequelize, Sequelize) {
       notEmpty: true
     },
 
+    avatar: {
+      type: Sequelize.BLOB
+    },
+
     username: {
       type: Sequelize.TEXT
     },
