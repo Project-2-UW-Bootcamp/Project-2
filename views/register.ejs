@@ -18,6 +18,17 @@
             />
           </div>
           <div class="form-group">
+            <label for="mob_no">Avatar</label>
+            <input
+              type="file"
+              id="file"
+              name="uploaded_image"
+              class="form-control"
+              placeholder="Avatar Url"
+              value="<%= typeof uploaded_image != 'undefined' ? uploaded_image : '' %>"
+            />
+          </div>
+          <div class="form-group">
             <label for="email">Email</label>
             <input
               type="email"
