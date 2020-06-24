@@ -7,7 +7,11 @@ router.get("/", function(req, res) {
 });
 
 router.get("/dashboard", ensureAuthenticated, function(req, res) {
-  res.render("dashboard");
+  var userData = {
+    id: req.user.id,
+    name: req.user.name
+  }
+  res.render("dashboard", { userData });
 });
 
 module.exports = router;

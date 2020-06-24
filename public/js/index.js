@@ -5,6 +5,8 @@ let infoWindow;
 let currentInfoWindow;
 let service;
 let infoPane;
+
+console.log('hi')
 function initMap() {
     // Initialize variables
     bounds = new google.maps.LatLngBounds();
@@ -96,7 +98,7 @@ google.maps.event.addListener(marker, 'click', () => {
     let request = {
     placeId: place.place_id,
     fields: ['name', 'formatted_address', 'geometry', 'rating',
-        'website', 'photos']
+        'website', 'photos', 'place_id']
     };
     /* Only fetch the details of a place when the user clicks on a marker.
     * If we fetch the details for all place results as soon as we get
@@ -114,6 +116,8 @@ google.maps.event.addListener(marker, 'click', () => {
         rating:placeResult.rating,
         popularity: 0
     }
+
+    returnParkData(parkData.parkID)
     
     $.ajax("/maps/api",{
         type: "POST",
@@ -136,10 +140,9 @@ google.maps.event.addListener(marker, 'click', () => {
     }
 }); */
     
-
-
     });
 });
+
 
     // Adjust the map bounds to include the location of this marker
     bounds.extend(place.geometry.location);
@@ -154,7 +157,7 @@ function showDetails(placeResult, marker, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
     let placeInfowindow = new google.maps.InfoWindow();
     placeInfowindow.setContent('<div><h4><strong>' + placeResult.name +
-        '</strong></h4>' + '<h4>Rating: ' + placeResult.rating + '</h4>' + '<button id="yo" type="submit" class="btn btn-primary btn-block">Go to thread</button>' + '</div>');
+        '</strong></h4>' + '<h4>Rating: ' + placeResult.rating + '</h4>' + `<a href="/dashboard/${placeResult.place_id}" id="thread" data-id='${placeResult.place_id}' class="btn btn-primary btn-block">Go to thread</a>` + '</div>');
     placeInfowindow.open(marker.map, marker);
     currentInfoWindow.close();
     currentInfoWindow = placeInfowindow;
@@ -164,7 +167,37 @@ function showDetails(placeResult, marker, status) {
     }
 }
 
+function threads(element){
+  var park_id = $(element).data('id');
+  $.ajax("/threads/api",{
+    type: "POST",
+    data: { park_id: park_id }
+}).then(function(data){
+    console.log(`New thread added to table`);
+    console.log(data)
+});
+}
 
+function returnParkData(something){
+  console.log(something);
+}
+
+$(".thread_submit").on("click", function(event){
+    event.preventDefault();
+    console.log('hi')
+    var park_id = $(this).data('id')
+    var newThread = {
+        ParkId: park_id,
+        text: $("#new-thread").val()
+    }
+    $.ajax("/newthread/api",{
+        type: "POST",
+        data: newThread
+    }).then(function(data){
+        console.log('You have successfully created a new thread')
+        console.log(data)
+    })
+})
 // Displays place details in a sidebar
 /*function showPanel(placeResult) {
     // If infoPane is already open, close it

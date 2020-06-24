@@ -4,7 +4,7 @@ var flash = require("connect-flash");
 var session = require("express-session");
 var passport = require("passport");
 
-var PORT = process.env.PORT || 5500;
+var PORT = process.env.PORT || 5600;
 
 var app = express();
 
@@ -50,12 +50,12 @@ app.set("view engine", "ejs");
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
-app.use('/threads', require('./routes/threads'))
 
 // Routes
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
 require("./routes/parks")(app);
+require("./routes/threads")(app)
 //Sync Database
 db.sequelize.sync().then(function() {
 

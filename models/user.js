@@ -43,7 +43,12 @@ module.exports = function(sequelize, Sequelize) {
       type: Sequelize.ENUM("active", "inactive"),
       defaultValue: "active"
     }
+    
   });
+
+  User.associate = function(models){
+    User.hasMany(models.threads)
+  }
 
   return User;
 };

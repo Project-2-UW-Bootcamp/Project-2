@@ -52,6 +52,17 @@
   border: 1px solid gray;
 }
 
+.thread_submit {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+}
+.fa-paw {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+}
+
 @media (min-width: 550px) {
   .map-container {
     height: 350px;
