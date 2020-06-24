@@ -4,7 +4,7 @@ var flash = require("connect-flash");
 var session = require("express-session");
 var passport = require("passport");
 
-var PORT = process.env.PORT || 5500;
+var PORT = process.env.PORT || 5600;
 
 var app = express();
 

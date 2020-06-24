@@ -154,7 +154,6 @@ google.maps.event.addListener(marker, 'click', () => {
 
 // Builds an InfoWindow to display details above the marker
 function showDetails(placeResult, marker, status) {
-  console.log(placeResult.place_id)
     if (status == google.maps.places.PlacesServiceStatus.OK) {
     let placeInfowindow = new google.maps.InfoWindow();
     placeInfowindow.setContent('<div><h4><strong>' + placeResult.name +
@@ -182,6 +181,23 @@ function threads(element){
 function returnParkData(something){
   console.log(something);
 }
+
+$(".thread_submit").on("click", function(event){
+    event.preventDefault();
+    console.log('hi')
+    var park_id = $(this).data('id')
+    var newThread = {
+        ParkId: park_id,
+        text: $("#new-thread").val()
+    }
+    $.ajax("/newthread/api",{
+        type: "POST",
+        data: newThread
+    }).then(function(data){
+        console.log('You have successfully created a new thread')
+        console.log(data)
+    })
+})
 // Displays place details in a sidebar
 /*function showPanel(placeResult) {
     // If infoPane is already open, close it

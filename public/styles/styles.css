@@ -30,8 +30,14 @@
   display: none;
 }
 
+.logout a {
+  display: block;
+  margin: 0 auto;
+  width: 20%;
+}
+
 .map-container {
-  border: 1px solid red;
+  border: 1px solid gray;
   height: 250px;
   width: 250px;
   margin-bottom: 3rem;
@@ -44,6 +50,17 @@
 
 .bottom-section {
   border: 1px solid gray;
+}
+
+.thread_submit {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+}
+.fa-paw {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
 }
 
 @media (min-width: 550px) {

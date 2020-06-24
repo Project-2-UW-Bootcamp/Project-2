@@ -8,9 +8,15 @@ module.exports = function(sequelize, DataTypes) {
     Threads.associate = function(models){
       Threads.belongsTo(models.Parks, {
         foreignKey: {
-          allowNull: false
+          allowNull: false,
+        }
+      })
+      Threads.belongsTo(models.user, {
+        foreignKey: {
+          allowNull: false,
         }
       })
     }
+
     return Threads
 }
