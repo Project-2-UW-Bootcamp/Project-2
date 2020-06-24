@@ -57,6 +57,11 @@
   margin: 0 auto;
   justify-content: center;
 }
+.profile {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+}
 .fa-paw {
   display: flex;
   margin: 0 auto;
