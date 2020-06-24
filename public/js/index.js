@@ -196,7 +196,30 @@ $(".thread_submit").on("click", function(event){
     }).then(function(data){
         console.log('You have successfully created a new thread')
         console.log(data)
+        location.reload();
     })
+})
+
+$("#my_profile_submit").on("click", function(event){
+    event.preventDefault();
+    var id = $(this).data('id')
+
+    var user = {
+        first_name: $("#first_name").val().trim(),
+        last_name: $("#last_name").val().trim(),
+        city: $("#city").val().trim(),
+        state: $("#state").val().trim(),
+        zip: $("#zip").val().trim(),
+        id: id
+    }
+
+    $.ajax({
+        method: "PUT",
+        url: "/users/api",
+        data: user
+      }).then(function() {
+        window.location.href = "/dashboard";
+      });
 })
 // Displays place details in a sidebar
 /*function showPanel(placeResult) {

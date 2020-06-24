@@ -3,6 +3,8 @@ var router = express.Router();
 var db = require("../models");
 var bcrypt = require("bcryptjs");
 var passport = require("passport");
+var { ensureAuthenticated} = require('../config/auth')
+
 
 // Register Page
 router.get('/register', function(req, res) {
@@ -21,9 +23,19 @@ router.get("/dashboard", function(req, res) {
 });
 
 // Profile Page
-router.get("/profile", function(req, res) {
-  res.render("profile");
+router.get("/profile/:id", ensureAuthenticated, function(req, res) {
+  var id = req.params.id
+  console.log(id)
+  var user_name = req.user.name
+  user_name = user_name + "'s"
+  var user_data = {
+    name: user_name,
+    id: req.user.id
+  }
+  console.log(user_name)
+  res.render("profile", { user_data })
 });
+
 
 // Hangle Register
 router.post("/register", function(req, res) {
@@ -126,5 +138,20 @@ router.get("/logout", function(req, res) {
   res.redirect("/users/login");
 });
 
+router.put("/api", function(req, res){
+  db.user.update({
+    firstname: req.body.first_name,
+    lastname: req.body.last_name,
+    city: req.body.city,
+    state: req.body.state,
+    zip: req.body.zip
+  }, { 
+    where: {
+    id: req.body.id
+    }
+  }).then(function(data){
+    
+  })
+})
 
 module.exports = router;
