@@ -25,6 +25,9 @@ app.get("/dashboard/:park_id", ensureAuthenticated, function(req, res){
     where: {
       ParkParkID: id
     },
+    order: [
+      ['id', 'DESC']
+  ],
     include: [db.Parks, db.user]
   }).then(function(response){
     if(response.length < 1){
@@ -32,7 +35,7 @@ app.get("/dashboard/:park_id", ensureAuthenticated, function(req, res){
       var data = []
       data.push(message)
       data.push(id)
-      res.render("dashboard", { data })
+      res.render("dashboard", { data, id: req.user.id })
     }else{
       var renderArr = []
       for (var i = 0; i < response.length; i ++){
@@ -40,14 +43,14 @@ app.get("/dashboard/:park_id", ensureAuthenticated, function(req, res){
           name: response[i].dataValues.Park.dataValues.name,
           address: response[i].dataValues.Park.dataValues.address,
           username: response[i].dataValues.user.name,
+          id: response[i].dataValues.user.id,
           text: response[i].dataValues.text,
-          posted: response[i].dataValues.user.createdAt
+          posted: response[i].dataValues.createdAt,
+          parkid: response[i].dataValues.ParkParkID
         }
         renderArr.push(renderData)
       }
-      
-      console.log('yfdfdfdfd', renderArr)
-    res.render("dashboard", { renderArr })
+    res.render("dashboard", { renderArr, user_id: req.user.id })
     }
   })
 })
@@ -62,7 +65,7 @@ app.post("/newthread/api", function(req, res){
   db.threads.create({
     ParkParkID: id,
     text: thread_text,
-    userId: req.user.id
+    userId: req.user.id,
   }).then(function(dbthreads) {
     res.json(dbthreads);
   });
